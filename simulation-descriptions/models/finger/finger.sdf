@@ -1,0 +1,296 @@
+<?xml version="1.0" ?>
+<!-- Inspired by Gazebo tutorial https://gazebosim.org/docs/harmonic/tutorials/-->
+<sdf version="1.8">
+    <model name="finger" canonical_link='platform'>
+        <pose>
+            0 0 0 0 0 0
+        </pose>
+        <link name='platform'>
+            <inertial> <!--inertial properties of the link mass, inertia matix, can be calculated with https://amesweb.info/inertia/mass-moment-of-inertia-calculator.aspx-->
+                <mass>10</mass>
+                <inertia>
+                    <ixx>0.095329</ixx>
+                    <ixy>0</ixy>
+                    <ixz>0</ixz>
+                    <iyy>0.381317</iyy>
+                    <iyz>0</iyz>
+                    <izz>0.476646</izz>
+                </inertia>
+            </inertial>
+            <visual name='visual'>
+                <geometry>
+                    <box>
+                        <size>3.0 3.0 3.0</size>
+                    </box>
+                </geometry>
+                <!--let's add color to our link
+                    red/gree/blue/alpha-->
+                <material>
+                    <ambient>0.0 0.5 0.5 1</ambient>
+                    <diffuse>0.0 0.5 0.5 1</diffuse>
+                    <specular>0.0 0.5 0.5 1</specular>
+                </material>
+            </visual>
+            <collision name='collision'>
+                <geometry>
+                    <box>
+                        <size>3.0 3.0 3.0</size>
+                    </box>
+                </geometry>
+            </collision>
+        </link>
+        <!-- base_segment-->
+        <link name='base_segment'>
+            <pose relative_to="platform">0 0 3 0 0 0</pose>
+            <inertial>
+                <mass>1</mass>
+                <inertia>
+                    <ixx>0.043333</ixx>
+                    <ixy>0</ixy>
+                    <ixz>0</ixz>
+                    <iyy>0.043333</iyy>
+                    <iyz>0</iyz>
+                    <izz>0.08</izz>
+                </inertia>
+            </inertial>
+            <visual name='visual'>
+                <geometry>
+                    <cylinder>
+                        <radius>0.4</radius>
+                        <length>3</length>
+                    </cylinder>
+                </geometry>
+                <material>
+                    <ambient>1.0 0.0 0.0 1</ambient>
+                    <diffuse>1.0 0.0 0.0 1</diffuse>
+                    <specular>1.0 0.0 0.0 1</specular>
+                </material>
+            </visual>
+            <collision name='collision'>
+                <geometry>
+                    <cylinder>
+                        <radius>0.4</radius>
+                        <length>3</length>
+                    </cylinder>
+                </geometry>
+            </collision>
+        </link>
+        <!-- mid_segment-->
+        <link name='lower_joint'>
+            <pose relative_to="base_segment">0 0 1.75 -1.5707 0 0</pose><!-- z=len(base_segment)/2+len(lower_joint)/2-->
+            <inertial>
+                <mass>1</mass>
+                <inertia>
+                    <ixx>0.043333</ixx>
+                    <ixy>0</ixy>
+                    <ixz>0</ixz>
+                    <iyy>0.043333</iyy>
+                    <iyz>0</iyz>
+                    <izz>0.08</izz>
+                </inertia>
+            </inertial>
+            <visual name='visual'>
+                <geometry>
+                    <cylinder>
+                        <radius>0.4</radius>
+                        <length>0.5</length>
+                    </cylinder>
+                </geometry>
+                <material>
+                    <ambient>0.0 0.0 1.0 1</ambient>
+                    <diffuse>0.0 0.0 1.0 1</diffuse>
+                    <specular>0.0 0.0 1.0 1</specular>
+                </material>
+            </visual>
+            <collision name='collision'>
+                <geometry>
+                    <cylinder>
+                        <radius>0.4</radius>
+                        <length>0.5</length>
+                    </cylinder>
+                </geometry>
+            </collision>
+        </link>
+        <link name='mid_segment'>
+            <pose relative_to="base_segment">0 0 3.25 0 0 0</pose>
+            <inertial>
+                <mass>1</mass>
+                <inertia>
+                    <ixx>0.043333</ixx>
+                    <ixy>0</ixy>
+                    <ixz>0</ixz>
+                    <iyy>0.043333</iyy>
+                    <iyz>0</iyz>
+                    <izz>0.08</izz>
+                </inertia>
+            </inertial>
+            <visual name='visual'>
+                <geometry>
+                    <cylinder>
+                        <radius>0.4</radius>
+                        <length>2.5</length>
+                    </cylinder>
+                </geometry>
+                <material>
+                    <ambient>1.0 0.0 0.0 1</ambient>
+                    <diffuse>1.0 0.0 0.0 1</diffuse>
+                    <specular>1.0 0.0 0.0 1</specular>
+                </material>
+            </visual>
+            <collision name='collision'>
+                <geometry>
+                    <cylinder>
+                        <radius>0.4</radius>
+                        <length>2.5</length>
+                    </cylinder>
+                </geometry>
+            </collision>
+        </link>
+        <!-- upper_segment-->
+        <link name='upper_joint'>
+            <pose relative_to="mid_segment">0 0 1.5 -1.5707 0 0</pose><!-- z=len(mid_segment)/2+len(upper_joint)/2-->
+            <inertial>
+                <mass>1</mass>
+                <inertia>
+                    <ixx>0.043333</ixx>
+                    <ixy>0</ixy>
+                    <ixz>0</ixz>
+                    <iyy>0.043333</iyy>
+                    <iyz>0</iyz>
+                    <izz>0.08</izz>
+                </inertia>
+            </inertial>
+            <visual name='visual'>
+                <geometry>
+                    <cylinder>
+                        <radius>0.4</radius>
+                        <length>0.5</length>
+                    </cylinder>
+                </geometry>
+                <material>
+                    <ambient>0.0 0.0 1.0 1</ambient>
+                    <diffuse>0.0 0.0 1.0 1</diffuse>
+                    <specular>0.0 0.0 1.0 1</specular>
+                </material>
+            </visual>
+            <collision name='collision'>
+                <geometry>
+                    <cylinder>
+                        <radius>0.4</radius>
+                        <length>0.5</length>
+                    </cylinder>
+                </geometry>
+            </collision>
+        </link>
+        <link name='upper_segment'>
+            <pose relative_to="mid_segment">0 0 2.5 0 0 0</pose>
+            <inertial>
+                <mass>1</mass>
+                <inertia>
+                    <ixx>0.043333</ixx>
+                    <ixy>0</ixy>
+                    <ixz>0</ixz>
+                    <iyy>0.043333</iyy>
+                    <iyz>0</iyz>
+                    <izz>0.08</izz>
+                </inertia>
+            </inertial>
+            <visual name='visual'>
+                <geometry>
+                    <cylinder>
+                        <radius>0.4</radius>
+                        <length>1.5</length>
+                    </cylinder>
+                </geometry>
+                <material>
+                    <ambient>1.0 0.0 0.0 1</ambient>
+                    <diffuse>1.0 0.0 0.0 1</diffuse>
+                    <specular>1.0 0.0 0.0 1</specular>
+                </material>
+            </visual>
+            <collision name='collision'>
+                <geometry>
+                    <cylinder>
+                        <radius>0.4</radius>
+                        <length>1.5</length>
+                    </cylinder>
+                </geometry>
+            </collision>
+        </link>
+
+        <!-- joints-->
+        <joint name='platform_base_joint' type='revolute'>
+            <pose relative_to='base_segment'/>
+            <parent>platform</parent>
+            <child>base_segment</child>
+            <axis>
+                <xyz expressed_in='__model__'>0 1 0</xyz> <!--can be defined as any frame or even arbitrary frames-->
+                <limit> <!--angle limits in radians-->
+                    <lower>0</lower>    <!--negative infinity-->
+                    <upper>0</upper>     <!--positive infinity-->
+                </limit>
+            </axis>
+        </joint>
+
+        <joint name='base_lower_joint' type='revolute'>
+            <pose relative_to='lower_joint'/>
+            <parent>base_segment</parent>
+            <child>lower_joint</child>
+            <axis>
+                <xyz expressed_in='__model__'>0 1 0</xyz> <!--can be defined as any frame or even arbitrary frames-->
+                <limit> <!--angle limits in radians-->
+                    <lower>0</lower>    <!--negative infinity-->
+                    <upper>1.91986</upper>     <!--positive infinity-->
+                </limit>
+            </axis>
+        </joint>
+
+        <joint name='lower_mid_joint' type='revolute'>
+            <pose relative_to='mid_segment'/>
+            <parent>lower_joint</parent>
+            <child>mid_segment</child>
+            <axis>
+                <xyz expressed_in='__model__'>0 1 0</xyz> <!--can be defined as any frame or even arbitrary frames-->
+                <limit> <!--angle limits in radians-->
+                    <lower>0</lower>    <!--negative infinity-->
+                    <upper>0</upper>     <!--positive infinity-->
+                </limit>
+            </axis>
+        </joint>
+
+        <joint name='mid_upper_joint' type='revolute'>
+            <pose relative_to='upper_joint'/>
+            <parent>mid_segment</parent>
+            <child>upper_joint</child>
+            <axis>
+                <xyz expressed_in='__model__'>0 1 0</xyz> <!--can be defined as any frame or even arbitrary frames-->
+                <limit> <!--angle limits in radians-->
+                    <lower>0</lower>    <!--negative infinity-->
+                    <upper>1.91986</upper>     <!--positive infinity-->
+                </limit>
+            </axis>
+        </joint>
+
+        <joint name='upper_upper_joint' type='revolute'>
+            <pose relative_to='mid_segment'/>
+            <parent>upper_joint</parent>
+            <child>upper_segment</child>
+            <axis>
+                <xyz expressed_in='__model__'>0 1 0</xyz> <!--can be defined as any frame or even arbitrary frames-->
+                <limit> <!--angle limits in radians-->
+                    <lower>0</lower>    <!--negative infinity-->
+                    <upper>0</upper>     <!--positive infinity-->
+                </limit>
+            </axis>
+        </joint>
+
+        <!-- plugin should be attached to a model-->
+        <plugin
+            filename="gz-sim-joint-controller-system"
+            name="gz::sim::systems::JointController">
+            <joint_name>lower_revolute_joint</joint_name>
+            <initial_velocity>1.0</initial_velocity>
+        </plugin>
+    </model>
+
+</sdf>
