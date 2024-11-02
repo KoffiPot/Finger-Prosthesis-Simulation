@@ -21,7 +21,6 @@ gz sim simulation-descriptions/world.sdf
 ```
 
 ## Notes
-- Gazebo topics might not be visible when using `ros2 topic list`
+- Gazebo topics are not be visible when using `ros2 topic list` (requires Gazebo-ROS-bridge)
 - To publish to a Gazebo topic use `gz topic`
     * Example: `gz topic -t "/cmd_vel" -m gz.msgs.Twist -p "linear: {x: 0.5}, angular: {z: 0.05}"`
-
