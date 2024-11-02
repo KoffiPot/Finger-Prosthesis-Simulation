@@ -22,5 +22,10 @@ gz sim simulation-descriptions/world.sdf
 
 ## Notes
 - Gazebo topics are not be visible when using `ros2 topic list` (requires Gazebo-ROS-bridge)
+    - A bridge can be started like this:
+```
+ros2 run ros_gz_bridge parameter_bridge --ros-args -p config_file:=./config/ros_gz.yml
+```
+
 - To publish to a Gazebo topic use `gz topic`
     * Example: `gz topic -t "/cmd_vel" -m gz.msgs.Twist -p "linear: {x: 0.5}, angular: {z: 0.05}"`
