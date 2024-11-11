@@ -283,20 +283,38 @@
         </joint>
 
         <!-- plugin should be attached to a model-->
-        <!-- publishes to /model/finger/joint/base_lower_joint/cmd_vel-->
+        <!-- By default, publishes to /model/finger/joint/base_lower_joint/cmd_vel-->
         <plugin
             filename="gz-sim-joint-controller-system"
             name="gz::sim::systems::JointController">
             <joint_name>base_lower_joint</joint_name>
             <initial_velocity>0.0</initial_velocity>
         </plugin>
-        <!-- publishes to /model/finger/joint/mid_upper_joint/cmd_vel-->
+        <!-- By default, publishes to /model/finger/joint/mid_upper_joint/cmd_vel-->
         <plugin
             filename="gz-sim-joint-controller-system"
             name="gz::sim::systems::JointController">
             <joint_name>mid_upper_joint</joint_name>
+            <!-- <topic>topic_name</topic> -->
             <initial_velocity>0.0</initial_velocity>
         </plugin>
+        
+        <!-- By default, publishes to /world/world_plain/model/finger/joint_state-->
+        <plugin
+            filename="gz-sim-joint-state-publisher-system"
+            name="gz::sim::systems::JointStatePublisher">
+            <joint_name>mid_upper_joint</joint_name>
+            <topic>/model/finger/joint/mid_upper_joint/joint_state</topic>
+        </plugin>
+
+        <!-- By default, publishes to /world/world_plain/model/finger/joint_state-->
+        <plugin
+            filename="gz-sim-joint-state-publisher-system"
+            name="gz::sim::systems::JointStatePublisher">
+            <joint_name>base_lower_joint</joint_name>
+            <topic>/model/finger/joint/base_lower_joint/joint_state</topic>
+        </plugin>
+
     </model>
 
 </sdf>
