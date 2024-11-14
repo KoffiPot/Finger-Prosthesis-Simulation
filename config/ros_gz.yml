@@ -8,3 +8,13 @@
   ros_type_name: "std_msgs/msg/Float64"
   gz_type_name: "gz.msgs.Double"
   direction: ROS_TO_GZ  # BIDIRECTIONAL, GZ_TO_ROS, or ROS_TO_GZ
+- ros_topic_name: "/gz/finger/joint/mid_upper_joint/joint_state"
+  gz_topic_name: "/model/finger/joint/mid_upper_joint/joint_state"
+  ros_type_name: "sensor_msgs/msg/JointState"
+  gz_type_name: "gz.msgs.Model"
+  direction: GZ_TO_ROS  # BIDIRECTIONAL, GZ_TO_ROS, or ROS_TO_GZ
+- ros_topic_name: "/gz/finger/joint/base_lower_joint/joint_state"
+  gz_topic_name: "/model/finger/joint/base_lower_joint/joint_state"
+  ros_type_name: "sensor_msgs/msg/JointState"
+  gz_type_name: "gz.msgs.Model"
+  direction: GZ_TO_ROS  # BIDIRECTIONAL, GZ_TO_ROS, or ROS_TO_GZ

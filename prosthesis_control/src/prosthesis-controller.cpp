@@ -23,4 +23,15 @@ namespace prosthesis_controller
       RCLCPP_INFO(this->get_logger(), "Publishing: '%f'", message.data);
       publisher_->publish(message);
   }
+
+  MinimalSubscriber::MinimalSubscriber(std::string node_name, std::string topic_name)
+  : Node(node_name)
+  {
+    auto topic_callback =
+      [this](sensor_msgs::msg::JointState::UniquePtr msg) -> void {
+        RCLCPP_INFO(this->get_logger(), "I heard: '%f'", msg->position[0]);
+      };
+    subscription_ =
+      this->create_subscription<sensor_msgs::msg::JointState>(topic_name, 10, topic_callback);
+  }
 }
