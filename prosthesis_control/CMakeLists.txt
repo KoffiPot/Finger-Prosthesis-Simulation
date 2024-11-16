@@ -5,20 +5,41 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
+# for unix platform, define install directories.
+include(GNUInstallDirs)
+
+execute_process (
+    COMMAND bash -c "julia -e 'print(joinpath(Sys.BINDIR, Base.DATAROOTDIR, \"julia\"))'"
+    OUTPUT_VARIABLE JL_SHARE
+)
+
+#include(FindPkgConfig)
+#pkg_check_modules(CURLPP REQUIRED curlpp)
+
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(rclcpp_components REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
+find_package(eigen3_cmake_module REQUIRED)
+find_package(Eigen3)
+# find_package(CURLPP REQUIRED curlpp)
 # uncomment the following section in order to fill in
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
 
 # Adapted from https://robotics.stackexchange.com/questions/99234/how-to-write-header-file-for-ros-2-publisher
-set(LIBS src/prosthesis-controller.cpp)
+set(LIBS src/prosthesis-controller.cpp src/prosthesis-model.cpp)
 add_executable(prosthesis-controller src/main.cpp ${LIBS})
-ament_target_dependencies(prosthesis-controller rclcpp std_msgs)
+
+set(JULIA_LIBS
+    ${JL_SHARE}/../..
+)
+add_library(julia OBJECT ${JULIA_LIBS}/lib/libjulia.so)
+include_directories(${JULIA_LIBS}/include/julia/)
+target_link_libraries(prosthesis-controller ${JULIA_LIBS}/lib/libjulia.so)
+ament_target_dependencies(prosthesis-controller rclcpp std_msgs sensor_msgs Eigen3)
 target_include_directories(prosthesis-controller PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include/${PROJECT_NAME}>)
