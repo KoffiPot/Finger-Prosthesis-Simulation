@@ -8,6 +8,9 @@ endif()
 # for unix platform, define install directories.
 include(GNUInstallDirs)
 
+# Inspired by
+# https://stackoverflow.com/a/35084851
+# https://docs.julialang.org/en/v1/manual/embedding/
 execute_process (
     COMMAND bash -c "julia -e 'print(joinpath(Sys.BINDIR, Base.DATAROOTDIR, \"julia\"))'"
     OUTPUT_VARIABLE JL_SHARE
@@ -33,6 +36,10 @@ find_package(Eigen3)
 set(LIBS src/prosthesis-controller.cpp src/prosthesis-model.cpp)
 add_executable(prosthesis-controller src/main.cpp ${LIBS})
 
+# Inspired by 
+# https://stackoverflow.com/a/38610804
+# https://stackoverflow.com/questions/47867368/how-to-embed-julia-into-a-c-cmake-application-built-with-gcc
+# https://stackoverflow.com/a/13703725
 set(JULIA_LIBS
     ${JL_SHARE}/../..
 )
